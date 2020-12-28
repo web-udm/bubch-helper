@@ -1,0 +1,24 @@
+version: "2"
+
+services:
+  php:
+    build: .
+    container_name: bubch-helper-php
+    volumes:
+      - .:/var/www
+    ports:
+      - 9000:9000
+  nginx:
+    image: nginx:latest
+    container_name: bubch-helper-nginx
+    volumes:
+      - .:/var/www
+      - ./docker/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/bubch-helper.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/php-fpm.ini:/etc/opt/remi/php71/php.ini
+      - ./logs/nginx/:/var/log/nginx
+    links:
+      - php:php
+    ports:
+      - 80:80
+      - 443:443
