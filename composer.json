@@ -1,6 +1,8 @@
 {
     "require": {
         "guzzlehttp/guzzle": "^7.2",
-        "slim/slim": "^4.7"
+        "slim/slim": "^4.7",
+        "php-di/php-di": "^6.3",
+        "slim/psr7": "^1.3"
     }
 }
