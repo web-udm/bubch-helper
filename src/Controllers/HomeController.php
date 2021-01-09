@@ -2,15 +2,27 @@
 
 namespace App\Controllers;
 
-use Psr\Http\Message\RequestInterface as Request;
-use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use App\Services\VkSenderService;
 
 class HomeController
 {
-    public function home(Request $request, Response $response)
+    /**
+     * @param RequestInterface $request
+     * @param ResponseInterface $response
+     * @return ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function home (RequestInterface $request,
+                          ResponseInterface $response,
+                          array $groupsIDs,
+                          int $numberOfPosts) : ResponseInterface
     {
-        $response->getBody()->write('Hello, Slim');
+        $sender = new VkSenderService();
 
-        return $response;
+        foreach ($groupsIDs as $groupsId) {
+            $sender->getPosts($numberOfPosts, $groupsId);
+        }
     }
 }

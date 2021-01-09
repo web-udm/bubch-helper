@@ -5,12 +5,12 @@ namespace App\Services;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
-class VKRequestService
+class VkSenderService
 {
     /**
      * @var string
      */
-    private string $apiToken = '84ef5ca10df961503901d08aa2eb957430dfabf1dc22d9ac6d410dad245a4428fa66be7b8c51f458f25e7';
+    private string $apiToken = 'cbf1b1e2d11b686cdb62b09e55d2e6c55b1c6287cb948c62a3f09c97fe9f6f8d33c48a6d38bfc3f443b15';
 
     /**
      * @var string
@@ -26,20 +26,18 @@ class VKRequestService
      * Получить массив с информацией о последних постах группы
      *
      * @param int $numberOfPosts
-     * @param array $groupsIDs
+     * @param string $groupId
      * @return array
      * @throws GuzzleException
      */
-    public function getPosts(int $numberOfPosts, array $groupsIDs) : array
+    public function getPosts(int $numberOfPosts, string $groupId) : string
     {
-        while ($groupsIDs) {
-            $groupId = array_shift($groupsIDs);
-            $result = $this->execute('wall.get', ['owner_id'=> '44690654']);
-        }
+            $result = $this->execute('wall.get', [
+                'owner_id'=> '44690654',
+                'count' => $numberOfPosts
+            ]);
 
-        while ($numberOfPosts) {
-
-        }
+            return $result;
     }
 
     /**
@@ -52,7 +50,7 @@ class VKRequestService
      */
     private function execute(string $methodName, array $params = []) : string
     {
-        $url = "{$this->apiUrl}$methodName?access_token={$this->apiToken}&$this->apiVersion";
+        $url = "{$this->apiUrl}$methodName?access_token={$this->apiToken}&v=$this->apiVersion";
         if (!empty($params)) {
             foreach ($params as $paramName => $paramValue) {
                 $url .= "&$paramName=$paramValue";

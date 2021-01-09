@@ -2,4 +2,4 @@
 
 use App\Controllers\HomeController;
 
-$app->get('/', HomeController::class . ':home');
+$app->get('/test', HomeController::class . ':home');
