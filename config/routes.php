@@ -2,4 +2,5 @@
 
 use App\Controllers\HomeController;
 
-$app->get('/test', HomeController::class . ':home');
+$app->get('/home', HomeController::class . ':home');
+$app->get('/results', HomeController::class . ':results');
