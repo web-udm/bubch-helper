@@ -27,13 +27,13 @@ class VkSenderService
      *
      * @param int $numberOfPosts
      * @param string $groupId
-     * @return array
+     * @return string
      * @throws GuzzleException
      */
     public function getPosts(int $numberOfPosts, string $groupId) : string
     {
             $result = $this->execute('wall.get', [
-                'owner_id'=> '44690654',
+                'owner_id'=> $groupId,
                 'count' => $numberOfPosts
             ]);
 
