@@ -3,4 +3,4 @@
 use App\Controllers\HomeController;
 
 $app->get('/home', HomeController::class . ':home');
-$app->get('/results', HomeController::class . ':results');
+$app->post('/results', HomeController::class . ':results');

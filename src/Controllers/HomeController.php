@@ -6,19 +6,18 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use App\Services\VkSenderService;
-use Slim\App;
 use Slim\Views\Twig;
 
 class HomeController
 {
-    /**
-     * @var ContainerInterface
-     */
-    public ContainerInterface $container;
+    private Twig $twig;
+
+    private VkSenderService $vkSender;
 
     public function __construct(ContainerInterface $container)
     {
-        $this->container = $container;
+        $this->twig = $container->get('view');
+        $this->vkSender = new VkSenderService();
     }
 
     /**
@@ -30,21 +29,33 @@ class HomeController
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function results(RequestInterface $request,
-                            ResponseInterface $response,
-                            array $groupsIDs,
-                            int $numberOfPosts) : ResponseInterface
+                            ResponseInterface $response) : ResponseInterface
     {
-        $sender = new VkSenderService();
+        try {
+            $links = explode("\n", $request->getParsedBody()['links']);
 
-        foreach ($groupsIDs as $groupsId) {
-            $res = $sender->getPosts($numberOfPosts, $groupsId);
+            if (empty($links[0])) {
+                throw new \Exception('<p>Ты забыла записать ссылки</p>');
+            }
+
+            foreach ($links as $link) {
+                preg_match('#vk\.com/(.+)#', $link, $match);
+                $groupId = $match[1];
+
+                $post = $this->vkSender->getPosts(1, $groupId);
+
+                var_dump($post);
+            }
+
+        } catch (\Exception $e) {
+            $response->getBody()->write('<p>Бубчи, что-то пошло не так :C: </p>' . $e->getMessage());
+
+            return $response;
         }
     }
 
     public function home(RequestInterface $request, ResponseInterface $response) : ResponseInterface
     {
-
-
-        return $this->container->get('view')->render($response, 'home/home.twig');
+        return $this->twig->render($response, 'home/home.twig');
     }
 }
