@@ -5,7 +5,7 @@ namespace App\Services;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
-class VkSenderService
+class VkApiService
 {
     /**
      * @var string
