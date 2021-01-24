@@ -10,7 +10,7 @@ class VkSenderService
     /**
      * @var string
      */
-    private string $apiToken = 'cbf1b1e2d11b686cdb62b09e55d2e6c55b1c6287cb948c62a3f09c97fe9f6f8d33c48a6d38bfc3f443b15';
+    private string $apiToken = 'a0930e90685e661bff94872193a114d4cbbd2a5a485486de346f243d4a2c22f8b481e730c89532d1a7676';
 
     /**
      * @var string
@@ -30,14 +30,21 @@ class VkSenderService
      * @return string
      * @throws GuzzleException
      */
-    public function getPosts(int $numberOfPosts, string $groupId) : string
+    public function getPosts(int $numberOfPosts, string $groupId): string
     {
+        if (preg_match('#id(\d+)#', $groupId, $match)) {
             $result = $this->execute('wall.get', [
-                'owner_id'=> $groupId,
+                'owner_id' => $match[1],
                 'count' => $numberOfPosts
             ]);
+        } else {
+            $result = $this->execute('wall.get', [
+                'domain' => $groupId,
+                'count' => $numberOfPosts
+            ]);
+        }
 
-            return $result;
+        return $result;
     }
 
     /**
@@ -48,9 +55,10 @@ class VkSenderService
      * @return string
      * @throws GuzzleException
      */
-    private function execute(string $methodName, array $params = []) : string
+    private function execute(string $methodName, array $params = []): string
     {
         $url = "{$this->apiUrl}$methodName?access_token={$this->apiToken}&v=$this->apiVersion";
+
         if (!empty($params)) {
             foreach ($params as $paramName => $paramValue) {
                 $url .= "&$paramName=$paramValue";
