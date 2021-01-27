@@ -7,6 +7,7 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use App\Services\VkApiService;
 use Slim\Views\Twig;
+use App\Serializers\PostSerializer;
 
 class HomeController
 {
@@ -14,10 +15,13 @@ class HomeController
 
     private VkApiService $vkSender;
 
+    private PostSerializer $postSerializer;
+
     public function __construct(ContainerInterface $container)
     {
         $this->twig = $container->get('view');
         $this->vkSender = new VkApiService();
+        $this->postSerializer = new PostSerializer();
     }
 
     /**
@@ -39,7 +43,7 @@ class HomeController
             }
 
             $posts = [];
-
+            var_dump($links);
             foreach ($links as $link) {
                 preg_match('#vk\.com/(.+)#', $link, $match);
 
@@ -50,6 +54,13 @@ class HomeController
                 $groupId = $match[1];
                 $posts[] = json_decode($this->vkSender->getPosts(2, $groupId), true);
             }
+
+            $serializePosts = $this->postSerializer->serialize($posts);
+
+            echo '<pre>';
+            var_dump($serializePosts);
+            var_dump($posts);
+            echo '</pre>';
 
             return $this->twig->render($response, 'home/results.twig',['posts' => $posts]);
         } catch (\Exception $e) {
