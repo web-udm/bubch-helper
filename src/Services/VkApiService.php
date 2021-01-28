@@ -10,7 +10,7 @@ class VkApiService
     /**
      * @var string
      */
-    private string $apiToken = '59ca9315d42138f305a624c0854e4059ebd4c311a80a850734824d143c11692fb3f8d8b7c7c4b4416fe4f';
+    private string $apiToken = 'c7da8f7910f77e72c5df3349a2589f3c7f61f56befb563c30c9300f791ab910be61411f1e89bbce75ef83';
 
     /**
      * @var string

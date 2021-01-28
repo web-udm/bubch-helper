@@ -15,16 +15,19 @@
             </thead>
             <tbody>
             {% for groupName, groupData in groupsData %}
-                <tr><td colspan="4" class="results__group-name display-3">{{ groupName }}</td></tr>
+                <tr>
+                    <td colspan="4" class="results__group-name display-3">{{ groupName }}</td>
+                </tr>
                 {% for post in groupData %}
                     <tr>
                         <td></td>
                         <td>{{ post.date|date("m/d/Y/ H:i:s", "Europe/Samara") }}</td>
                         <td>
-                            <img src="{{ post.images[0] }}">
-                            {{ post.text }}
+                            {% for image in post.images %}
+                                <img src="{{ image }}">
+                            {% endfor %}
+                            <p class="results__text">{{ post.text }}</p>
                         </td>
-
                     </tr>
                 {% endfor %}
             {% endfor %}
