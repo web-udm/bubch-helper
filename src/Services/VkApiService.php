@@ -10,7 +10,7 @@ class VkApiService
     /**
      * @var string
      */
-    private string $apiToken = '04dec25b3d2c5fdf340597befd41d10cbcb0f42245a5f2d2a302cd67197393476cf438234753569f383bb';
+    private string $apiToken = '59ca9315d42138f305a624c0854e4059ebd4c311a80a850734824d143c11692fb3f8d8b7c7c4b4416fe4f';
 
     /**
      * @var string
@@ -25,12 +25,12 @@ class VkApiService
     /**
      * Получить массив с информацией о последних постах группы
      *
-     * @param int $numberOfPosts
      * @param string $groupId
-     * @return string
+     * @param int $numberOfPosts
+     * @return array
      * @throws GuzzleException
      */
-    public function getPosts(int $numberOfPosts, string $groupId): string
+    public function getPosts(string $groupId, int $numberOfPosts): array
     {
         if (preg_match('#id(\d+)#', $groupId, $match)) {
             $result = $this->execute('wall.get', [
@@ -44,7 +44,10 @@ class VkApiService
             ]);
         }
 
-        return $result;
+        $resultArr = json_decode($result, true);
+        $resultArr['groupId'] = $groupId;
+
+        return $resultArr;
     }
 
     /**

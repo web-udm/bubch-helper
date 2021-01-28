@@ -43,7 +43,7 @@ class HomeController
             }
 
             $posts = [];
-            var_dump($links);
+
             foreach ($links as $link) {
                 preg_match('#vk\.com/(.+)#', $link, $match);
 
@@ -51,8 +51,8 @@ class HomeController
                     throw new \Exception("<p>Косячная ссылка: $link</p>");
                 }
 
-                $groupId = $match[1];
-                $posts[] = json_decode($this->vkSender->getPosts(2, $groupId), true);
+                $groupId = trim($match[1]); //убираем символ переноса строки, обусловлено вводом пользователя в форму
+                $posts[] = $this->vkSender->getPosts($groupId, 2);
             }
 
             $serializePosts = $this->postSerializer->serialize($posts);
@@ -62,7 +62,7 @@ class HomeController
             var_dump($posts);
             echo '</pre>';
 
-            return $this->twig->render($response, 'home/results.twig',['posts' => $posts]);
+            return $this->twig->render($response, 'home/results.twig',['groupsData' => $serializePosts]);
         } catch (\Exception $e) {
             $response->getBody()->write('<p>Бубчи, что-то пошло не так :C: </p>' . $e->getMessage());
 

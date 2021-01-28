@@ -3,24 +3,28 @@
 {% block title %} Bubch-helper {% endblock %}
 {% block content %}
     <section class="results">
-        <table class="table results_table">
+        <table class="table results__table">
             <thead>
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Дата/время</th>
                 <th scope="col">Текст</th>
-                <th scope="col">Картинка</th>
+                <th scope="col">Смайликов:</th>
+                <th scope="col">Хэштеги:</th>
             </tr>
             </thead>
             <tbody>
-            {% for post in posts %}
-                <tr><td colspan="4">Название группы</td></tr>
-                {% for item in post.response.items %}
+            {% for groupName, groupData in groupsData %}
+                <tr><td colspan="4" class="results__group-name display-3">{{ groupName }}</td></tr>
+                {% for post in groupData %}
                     <tr>
                         <td></td>
-                        <td>{{ item.date|date("m/d/Y/ H:i:s", "Europe/Samara") }}</td>
-                        <td>{{ item.text }}</td>
-                        <td>{{ item.attachments[0]['type'] }}</td>
+                        <td>{{ post.date|date("m/d/Y/ H:i:s", "Europe/Samara") }}</td>
+                        <td>
+                            <img src="{{ post.images[0] }}">
+                            {{ post.text }}
+                        </td>
+
                     </tr>
                 {% endfor %}
             {% endfor %}
