@@ -2,8 +2,17 @@
 
 namespace App\Serializers;
 
+use App\Helpers\TextHelper;
+
 class PostSerializer
 {
+    protected TextHelper $textHelper;
+
+    public function __construct()
+    {
+        $this->textHelper = new TextHelper();
+    }
+
     public function serialize($groupsData)
     {
         $serializePosts = [];
@@ -17,6 +26,7 @@ class PostSerializer
                 $serializePosts[$groupName][$postId]['link'] = "https://vk.com/$groupName?w=wall{$groupId}_{$postId}";
                 $serializePosts[$groupName][$postId]['date'] = $post['date'];
                 $serializePosts[$groupName][$postId]['text'] = $post['text'];
+                $serializePosts[$groupName][$postId]['hashtags'] = $this->textHelper->calculateHashtags($post['text']);
 
                 if (isset($post['attachments'])) {
                     foreach ($post['attachments'] as $attachment) {

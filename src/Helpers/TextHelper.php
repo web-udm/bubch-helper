@@ -6,7 +6,8 @@ class TextHelper
 {
     public function calculateHashtags(string $text)
     {
-        preg_match_all('/#w+/u', $text, $matches);
-        var_dump($matches);
+        preg_match_all('/#\w+/u', $text, $matches);
+
+        return $matches[0];
     }
 }
