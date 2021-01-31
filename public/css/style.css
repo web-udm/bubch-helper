@@ -1,3 +1,7 @@
+img {
+    width: 45%;
+}
+
 .main-form h1 {
     margin-bottom: 30px;
 
@@ -18,4 +22,9 @@
 
 .results__group-name {
     text-align: center;
+}
+
+.results__emojies-count, .results__hashtags-count {
+    font-size: 40px;
+    color: #22f922;
 }

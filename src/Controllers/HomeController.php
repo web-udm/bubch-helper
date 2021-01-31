@@ -52,15 +52,15 @@ class HomeController
                 }
 
                 $groupId = trim($match[1]); //убираем символ переноса строки, обусловлено вводом пользователя в форму
-                $posts[] = $this->vkSender->getPosts($groupId, 2);
+                $posts[] = $this->vkSender->getPosts($groupId, 1);
             }
 
             $serializePosts = $this->postSerializer->serialize($posts);
 
-            echo '<pre>';
+            /*echo '<pre>';
             var_dump($serializePosts);
             var_dump($posts);
-            echo '</pre>';
+            echo '</pre>';*/
 
             return $this->twig->render($response, 'home/results.twig',['groupsData' => $serializePosts]);
         } catch (\Exception $e) {
