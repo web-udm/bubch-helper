@@ -27,6 +27,7 @@ class PostSerializer
                 $serializePosts[$groupName][$postId]['date'] = $post['date'];
                 $serializePosts[$groupName][$postId]['text'] = $post['text'];
                 $serializePosts[$groupName][$postId]['hashtags'] = $this->textHelper->calculateHashtags($post['text']);
+                $serializePosts[$groupName][$postId]['hashtags'] = $this->textHelper->calculateEmoji($post['text']);
 
                 if (isset($post['attachments'])) {
                     foreach ($post['attachments'] as $attachment) {
