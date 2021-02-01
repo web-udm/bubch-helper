@@ -1,5 +1,5 @@
 img {
-    width: 45%;
+    width: 300px;
 }
 
 .main-form h1 {
@@ -24,7 +24,42 @@ img {
     text-align: center;
 }
 
-.results__emojies-count, .results__hashtags-count {
+.results__emojies-number, .results__hashtags-number {
     font-size: 40px;
     color: #22f922;
+}
+
+.results__data-wrapper {
+    display: flex;
+    align-items: normal;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+    border: 2px solid black;
+    background-image: url("https://im0-tub-ru.yandex.net/i?id=9cb17e4ac019dc636b9d8b72fa7b3a84&n=13&exp=1");
+    background-size: cover;
+}
+
+.results__content-wrapper {
+    width: 100%;
+
+    border-top: 1px solid black;
+}
+
+.results__time-wrapper, .results__emojies-wrapper {
+    width: 33%;
+
+    border-right: 1px black solid;
+}
+
+.results__hashtags-wrapper {
+    width: 34%;
+
+    border-right: 1px black solid;
+}
+
+.results__item {
+    padding: 10px;
+
+    text-align: center;
 }

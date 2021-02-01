@@ -3,54 +3,43 @@
 {% block title %} Bubch-helper {% endblock %}
 {% block content %}
     <section class="results">
-        <table class="table table-dark table-bordered results__table">
-            <thead>
-            <tr>
-                <th scope="col">Дата/время</th>
-                <th scope="col">Текст</th>
-                <th scope="col">Смайликов:</th>
-                <th scope="col">Хэштеги:</th>
-            </tr>
-            </thead>
-            {% for groupName, groupData in groupsData %}
-                <thead>
-                <tr>
-                    <td colspan="4" class="results__group-name display-3" data-toggle="collapse"
-                        data-target="#demo">{{ groupName }}</td>
-                </tr>
-                </thead>
-                {% for post in groupData %}
-                    <tr class="collapse card card-body" id="demo">
-                        <td>{{ post.date|date("m/d/Y/ H:i:s", "Europe/Samara") }}</td>
-                        <td>
-                            {% for image in post.images %}
-                                <img src="{{ image }}">
+        {% for groupName, groupData in groupsData %}
+            <p type="button" class="results__group-name display-3" data-toggle="collapse"
+               data-target="#{{ groupName }}">{{ groupName }}</p>
+            {% for post in groupData %}
+                <div class="results__data-wrapper collapse" id="{{ groupName }}">
+                    <div class="results__item results__time-wrapper">
+                        <time>{{ post.date|date("m/d/Y/ H:i:s", "Europe/Samara") }}</time>
+                    </div>
+                    <div class="results__item results__emojies-wrapper">
+                        <p class="results__emojies-count">
+                            Эмодзи:<br><span class="results__emojies-number">{{ post.emojies|length }}</span>
+                        </p>
+                        <p class="results__emojies-list">
+                            {% for emoji in post.emojies %}
+                                <span>{{ emoji }}</span>
                             {% endfor %}
-                            <p class="results__text">{{ post.text }}</p>
-                        </td>
-                        <td>
-                            <p class="results__emojies-count">
-                                {{ post.emojies|length }}
-                            </p>
-                            <p class="results__emojies-list">
-                                {% for emoji in post.emojies %}
-                                    <span>{{ emoji }}</span>
-                                {% endfor %}
-                            </p>
-                        </td>
-                        <td>
-                            <p class="results__hashtags-count">
-                                {{ post.hashtags|length }}
-                            </p>
-                            <p class="results__hashtags-list">
-                                {% for hashtag in post.hashtags %}
-                                    <span>{{ hashtag }}</span>
-                                {% endfor %}
-                            </p>
-                        </td>
-                    </tr>
-                {% endfor %}
+                        </p>
+                    </div>
+                    <div class="results__item results__hashtags-wrapper">
+                        <p class="results__hashtags-count">
+                            Хэштегов:<br><span class="results__hashtags-number">{{ post.hashtags|length }}</span>
+                        </p>
+                        <p class="results__hashtags-list">
+                            {% for hashtag in post.hashtags %}
+                                <span>{{ hashtag }}</span>
+                            {% endfor %}
+                        </p>
+                    </div>
+                    <div class="results__item results__content-wrapper">
+                        {% for image in post.images %}
+                            <img src="{{ image }}">
+                        {% endfor %}
+                        <p class="results__text">{{ post.text }}</p>
+                    </div>
+                </div>>
             {% endfor %}
+        {% endfor %}
         </table>
     </section>
 {% endblock %}
