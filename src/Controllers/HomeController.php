@@ -37,7 +37,11 @@ class HomeController
     {
         try {
             if ($token = $request->getParsedBody()['token']) {
-                setcookie('token', $request->getParsedBody()['token'], time() + 5);
+                setcookie('token', $request->getParsedBody()['token'], time() + 86400, '/');
+            } else if (isset($_COOKIE['token'])) {
+                $token = $_COOKIE['token'];
+            } else {
+                throw new \Exception("<p>Кука сдохла</p>");
             }
 
             $links = explode("\n", $request->getParsedBody()['links']);
@@ -54,10 +58,6 @@ class HomeController
                 );
             }
 
-            if (!isset($_COOKIE['token'])) {
-                throw new \Exception("<p>Кука сдохла</p>");
-            }
-
             $posts = [];
 
             foreach ($links as $link) {
@@ -69,7 +69,7 @@ class HomeController
 
                 $groupId = trim($match[1]); //убираем символ переноса строки, обусловлено вводом пользователя в форму
 
-                $this->vkSender->setApiToken($_COOKIE['token']);
+                $this->vkSender->setApiToken($token);
                 $posts[] = $this->vkSender->getPosts($groupId, $postsNumber);
             }
 
