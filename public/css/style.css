@@ -9,6 +9,10 @@ img {
     font-size: 88px;
 }
 
+.main-form label {
+    margin-bottom: 10px;
+}
+
 .main-form__description {
     font-size: 20px;
     text-align: center;
