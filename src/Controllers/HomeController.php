@@ -36,6 +36,10 @@ class HomeController
                             ResponseInterface $response) : ResponseInterface
     {
         try {
+            if ($token = $request->getParsedBody()['token']) {
+                setcookie('token', $request->getParsedBody()['token'], time() + 86400);
+            }
+
             $links = explode("\n", $request->getParsedBody()['links']);
             $postsNumber = ($request->getParsedBody()['posts_number']);
 
@@ -48,6 +52,10 @@ class HomeController
                     "<p>Ты сломала сервер</p>" .
                             "<img src='http://ww2.sinaimg.cn/bmiddle/9150e4e5ly1fh3mcehmamg2088088qlf.gif'>"
                 );
+            }
+
+            if (!isset($_COOKIE['token'])) {
+                throw new \Exception("<p>Кука сдохла</p>");
             }
 
             $posts = [];
