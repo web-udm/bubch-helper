@@ -3,6 +3,7 @@
 namespace App\Serializers;
 
 use App\Helpers\TextHelper;
+use App\Services\YaSpellerSender;
 
 class PostSerializer
 {
@@ -25,7 +26,7 @@ class PostSerializer
 
                 $serializePosts[$groupName][$postId]['link'] = "https://vk.com/$groupName?w=wall{$groupId}_{$postId}";
                 $serializePosts[$groupName][$postId]['date'] = $post['date'];
-                $serializePosts[$groupName][$postId]['text'] = $post['text'];
+                $serializePosts[$groupName][$postId]['text'] = (new YaSpellerSender())->checkText($post['text']);
                 $serializePosts[$groupName][$postId]['hashtags'] = $this->textHelper->calculateHashtags($post['text']);
                 $serializePosts[$groupName][$postId]['emojies'] = $this->textHelper->calculateEmoji($post['text']);
 

@@ -76,3 +76,7 @@ img {
 
     text-align: center;
 }
+
+.wrong-word {
+    color: red;
+}

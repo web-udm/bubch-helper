@@ -35,7 +35,7 @@
                         {% for image in post.images %}
                             <img src="{{ image }}">
                         {% endfor %}
-                        <p class="results__text">{{ post.text }}</p>
+                        <p class="results__text">{{ post.text|raw }}</p>
                     </div>
                 </div>
             {% endfor %}
