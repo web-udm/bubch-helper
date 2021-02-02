@@ -10,7 +10,7 @@ class VkApiService
     /**
      * @var string
      */
-    private string $apiToken = '4f5b6f5271d9a4c07d0a4cf4ffff0b46fafbd1e0d43f5b81d2be65866b96a6b82239133557e34038f5822';
+    private string $apiToken;
 
     /**
      * @var string
@@ -21,6 +21,14 @@ class VkApiService
      * @var string
      */
     private string $apiUrl = 'https://api.vk.com/method/';
+
+    /**
+     * @param string $token
+     */
+    public function setApiToken(string $token)
+    {
+        $this->apiToken = $token;
+    }
 
     /**
      * Получить массив с информацией о последних постах группы

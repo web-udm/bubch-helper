@@ -37,7 +37,7 @@ class HomeController
     {
         try {
             if ($token = $request->getParsedBody()['token']) {
-                setcookie('token', $request->getParsedBody()['token'], time() + 86400);
+                setcookie('token', $request->getParsedBody()['token'], time() + 5);
             }
 
             $links = explode("\n", $request->getParsedBody()['links']);
@@ -68,6 +68,8 @@ class HomeController
                 }
 
                 $groupId = trim($match[1]); //убираем символ переноса строки, обусловлено вводом пользователя в форму
+
+                $this->vkSender->setApiToken($_COOKIE['token']);
                 $posts[] = $this->vkSender->getPosts($groupId, $postsNumber);
             }
 
