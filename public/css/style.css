@@ -14,6 +14,10 @@ img {
     text-align: center;
 }
 
+.main-form textarea {
+    margin-bottom: 15px;
+}
+
 .main-form__button {
     display: block;
     margin: auto;
@@ -34,6 +38,7 @@ img {
     align-items: normal;
     flex-wrap: wrap;
     justify-content: space-evenly;
+    margin-bottom: 15px;
 
     border: 2px solid black;
     background-image: url("https://im0-tub-ru.yandex.net/i?id=9cb17e4ac019dc636b9d8b72fa7b3a84&n=13&exp=1");
@@ -56,6 +61,10 @@ img {
     width: 34%;
 
     border-right: 1px black solid;
+}
+
+.results__time-wrapper {
+    font-size: 26px;
 }
 
 .results__item {

@@ -9,7 +9,7 @@
             {% for post in groupData %}
                 <div class="results__data-wrapper collapse" id="{{ groupName }}">
                     <div class="results__item results__time-wrapper">
-                        <time>{{ post.date|date("m/d/Y/ H:i:s", "Europe/Samara") }}</time>
+                        <time> {{ post.date|date("m/d/Y/ H:i:s", "Europe/Samara") }}</time>
                     </div>
                     <div class="results__item results__emojies-wrapper">
                         <p class="results__emojies-count">
@@ -37,7 +37,7 @@
                         {% endfor %}
                         <p class="results__text">{{ post.text }}</p>
                     </div>
-                </div>>
+                </div>
             {% endfor %}
         {% endfor %}
         </table>
