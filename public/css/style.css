@@ -9,6 +9,16 @@ img {
     font-size: 88px;
 }
 
+.main-form__posts-count {
+    margin-bottom: 15px;
+}
+
+.main-form__token-link {
+    display: block;
+    width: 150px;
+    margin-bottom: 15px;
+}
+
 .main-form label {
     margin-bottom: 10px;
 }

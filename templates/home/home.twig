@@ -14,7 +14,7 @@
                 <textarea class="form-control" rows="7" name="links"></textarea>
                 <label>
                     Кол-во постов
-                    <select class="form-select" name="posts_number">
+                    <select class="form-select main-form__posts-count" name="posts_number">
                         <option selected value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -23,6 +23,7 @@
                         <option value="миллион">миллион</option>
                     </select>
                 </label><br>
+                <a type="button" class="main-form__token-link btn btn-primary" href="https://oauth.vk.com/authorize?client_id=7511602 &display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends&response_type=token&v=5.52">Получить токен</a>
                 <label>
                     Токен (обновляется 1 раз в 24 часа)<br>
                     <input type="text" size="80" class="form-text main-form__token" name="token">
