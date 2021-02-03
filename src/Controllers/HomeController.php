@@ -41,19 +41,19 @@ class HomeController
             } else if (isset($_COOKIE['token'])) {
                 $token = $_COOKIE['token'];
             } else {
-                throw new \Exception("<p>Кука сдохла</p>");
+                throw new \Exception("Кука сдохла");
             }
 
             $links = explode("\n", $request->getParsedBody()['links']);
             $postsNumber = ($request->getParsedBody()['posts_number']);
 
             if (empty($links[0])) {
-                throw new \Exception('<p>Ты забыла записать ссылки</p>');
+                throw new \Exception('Ты забыла записать ссылки');
             }
 
             if ($postsNumber == 'миллион') {
                 throw new \Exception(
-                    "<p>Ты сломала сервер</p>" .
+                    "Ты сломала сервер" .
                             "<img src='http://ww2.sinaimg.cn/bmiddle/9150e4e5ly1fh3mcehmamg2088088qlf.gif'>"
                 );
             }
@@ -64,7 +64,7 @@ class HomeController
                 preg_match('#vk\.com/(.+)#', $link, $match);
 
                 if (empty($match[1])) {
-                    throw new \Exception("<p>Косячная ссылка: $link</p>");
+                    throw new \Exception("Косячная ссылка: $link");
                 }
 
                 $groupId = trim($match[1]); //убираем символ переноса строки, обусловлено вводом пользователя в форму
@@ -78,7 +78,7 @@ class HomeController
             return $this->twig->render($response, 'home/results.twig',['groupsData' => $serializePosts]);
         } catch (\Exception $e) {
 
-            return $this->twig->render($response, 'home/error.twig', ['ErrorMessage' => $e->getMessage()]);
+            return $this->twig->render($response, 'home/error.twig', ['errorMessage' => $e->getMessage()]);
         }
     }
 
