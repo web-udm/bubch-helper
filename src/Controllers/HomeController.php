@@ -77,9 +77,8 @@ class HomeController
 
             return $this->twig->render($response, 'home/results.twig',['groupsData' => $serializePosts]);
         } catch (\Exception $e) {
-            $response->getBody()->write('<p>Бубчи, что-то пошло не так: </p>' . $e->getMessage());
 
-            return $response;
+            return $this->twig->render($response, 'home/error.twig', ['ErrorMessage' => $e->getMessage()]);
         }
     }
 
