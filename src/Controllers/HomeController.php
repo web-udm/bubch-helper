@@ -26,21 +26,11 @@ class HomeController
         $this->postSerializer = new PostSerializer();
     }
 
-    /**
-     * @param RequestInterface $request
-     * @param ResponseInterface $response
-     *
-     * @return ResponseInterface
-     *
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
     public function results(RequestInterface $request,
                             ResponseInterface $response) : ResponseInterface
     {
         try {
-            if ($token = $request->getParsedBody()['token']) {
-                setcookie('token', $request->getParsedBody()['token'], time() + 86400, '/');
-            } else if (isset($_COOKIE['token'])) {
+            if (isset($_COOKIE['token'])) {
                 $token = $_COOKIE['token'];
             } else {
                 throw new \Exception("Кука сдохла");
@@ -56,7 +46,8 @@ class HomeController
             if ($postsNumber == 'миллион') {
                 throw new \Exception(
                     "Ты сломала сервер" .
-                            "<img src='http://ww2.sinaimg.cn/bmiddle/9150e4e5ly1fh3mcehmamg2088088qlf.gif'>"
+                            "<br>" .
+                            "<img src='img/9150e4e5ly1fh3mcehmamg2088088qlf.gif'>"
                 );
             }
 
@@ -79,7 +70,6 @@ class HomeController
 
             return $this->twig->render($response, 'home/results.twig',['groupsData' => $serializePosts]);
         } catch (\Exception $e) {
-
             return $this->twig->render($response, 'home/error.twig', ['errorMessage' => $e->getMessage()]);
         }
     }
@@ -102,7 +92,14 @@ class HomeController
                 "https://oauth.vk.com/access_token?client_id=7751109&client_secret=POPldpjU2CoJj8MoDk2P&redirect_uri=http://webudm.beget.tech/token&code=$code"
             );
 
-            var_dump($response->getBody()->getContents());
+            $responseDataArray = json_decode($response->getBody()->getContents(), true);
+            $token = $responseDataArray['access_token'];
+
+            setcookie('token', $token, time() + 86400);
+
+            return $response
+                ->withHeader('Location', '/')
+                ->withStatus(302);
         } catch (\Exception $e) {
             return $this->twig->render($response, 'home/error.twig', ['errorMessage' => $e->getMessage()]);
         }
