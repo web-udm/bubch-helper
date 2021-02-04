@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use GuzzleHttp\Client;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -20,6 +21,7 @@ class HomeController
     public function __construct(ContainerInterface $container)
     {
         $this->twig = $container->get('view');
+        $this->client = new Client();
         $this->vkSender = new VkApiService();
         $this->postSerializer = new PostSerializer();
     }
@@ -85,5 +87,24 @@ class HomeController
     public function home(RequestInterface $request, ResponseInterface $response) : ResponseInterface
     {
         return $this->twig->render($response, 'home/home.twig');
+    }
+
+    public function token(RequestInterface $request, ResponseInterface $response) : ResponseInterface
+    {
+        try {
+            if (!isset($_GET['code'])) {
+                throw new \Exception('Не получилось добыть код. Попробуй еще раз или напиши мяу');
+            }
+
+            $code = $_GET['code'];
+
+            $response = $this->client->request('GET',
+                "https://oauth.vk.com/access_token?client_id=7751109&client_secret=POPldpjU2CoJj8MoDk2P&redirect_uri=http://webudm.beget.tech/token&code=$code"
+            );
+
+            var_dump($response->getBody()->getContents());
+        } catch (\Exception $e) {
+            return $this->twig->render($response, 'home/error.twig', ['errorMessage' => $e->getMessage()]);
+        }
     }
 }

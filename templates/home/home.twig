@@ -4,7 +4,6 @@
 
 {% block content %}
     <section class="main-form">
-        <h1 class="display-1">Сайт помощи Любчам &#128036;</h1>
         <div class="row justify-content-center">
             <form class="col-lg-9" method="post" action="/results">
                 <p class="main-form__description">
@@ -23,7 +22,10 @@
                         <option value="миллион">миллион</option>
                     </select>
                 </label><br>
-                <a type="button" class="main-form__token-link btn btn-primary" href="https://oauth.vk.com/authorize?client_id=7511602 &display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends&response_type=token&v=5.52">Получить токен</a>
+                <a type="button" class="main-form__token-link btn btn-primary"
+                   href="https://oauth.vk.com/authorize?client_id=7751109&display=page&redirect_uri=http://webudm.beget.tech/token&scope=friends&response_type=code&v=5.126">
+                    Получить токен
+                </a>
                 <label>
                     Токен (обновляется 1 раз в 24 часа)<br>
                     <input type="text" size="80" class="form-text main-form__token" name="token">
