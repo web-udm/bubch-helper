@@ -26,7 +26,8 @@ class PostSerializer
 
                 $serializePosts[$groupName][$postId]['link'] = "https://vk.com/$groupName?w=wall{$groupId}_{$postId}";
                 $serializePosts[$groupName][$postId]['date'] = $post['date'];
-                $serializePosts[$groupName][$postId]['text'] = (new YaSpellerSender())->checkText($post['text']);
+                //TODO решить проблему с проверкой текста. Сейчас в Speller летит слишком большой текст и возникает ошибка
+                $serializePosts[$groupName][$postId]['text'] = $post['text'];
                 $serializePosts[$groupName][$postId]['hashtags'] = $this->textHelper->calculateHashtags($post['text']);
                 $serializePosts[$groupName][$postId]['emojies'] = $this->textHelper->calculateEmoji($post['text']);
 
