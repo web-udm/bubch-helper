@@ -79,7 +79,7 @@ class HomeController
         $gotToken = $request->hasHeader('Referer');
 
         return $this->twig->render(
-            $response, 'home/home.twig', [
+            $response, 'home/posts.twig', [
                 'gotToken' => $gotToken
             ],
         );

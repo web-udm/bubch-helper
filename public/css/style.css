@@ -6,6 +6,11 @@ img {
     width: 300px;
 }
 
+.title {
+    margin-top: 120px;
+    text-align: center;
+}
+
 .main-form h1 {
     margin-bottom: 30px;
 
