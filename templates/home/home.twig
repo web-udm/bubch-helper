@@ -5,6 +5,13 @@
 {% block content %}
     <section class="main-form">
         <div class="row justify-content-center">
+
+            {% if gotToken %}
+                <div class="alert alert-success" role="alert">
+                    Ура, ВК дал тебе токен!
+                </div>
+            {% endif %}
+
             <form class="col-lg-9" method="post" action="/results">
                 <p class="main-form__description">
                     Любчи, чтобы помочь себе - напишите ссылки, с которых нужно собрать посты, в форму ниже.
