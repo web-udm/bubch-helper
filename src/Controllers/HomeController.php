@@ -76,14 +76,20 @@ class HomeController
 
     public function home(RequestInterface $request, ResponseInterface $response) : ResponseInterface
     {
-        return $this->twig->render($response, 'home/home.twig');
+        $gotToken = $request->hasHeader('Referer');
+
+        return $this->twig->render(
+            $response, 'home/home.twig', [
+                'gotToken' => $gotToken
+            ],
+        );
     }
 
     public function token(RequestInterface $request, ResponseInterface $response) : ResponseInterface
     {
         try {
             if (!isset($_GET['code'])) {
-                throw new \Exception('Не получилось добыть код. Попробуй еще раз или напиши мяу');
+                throw new \Exception('Не получилось добыть токен');
             }
 
             $code = $_GET['code'];
