@@ -2162,7 +2162,7 @@ p {
         09.NAVBAR css
 ===========================*/
 .navbar-area {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;

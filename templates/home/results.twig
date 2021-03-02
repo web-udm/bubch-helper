@@ -7,7 +7,7 @@
             <p type="button" class="results__group-name display-3" data-toggle="collapse"
                data-target="#{{ groupName }}">{{ groupName }}</p>
             {% for post in groupData %}
-                <div class="results__data-wrapper collapse" id="{{ groupName }}">
+                <div class="results__data-wrapper" id="{{ groupName }}">
                     <div class="results__item results__time-wrapper">
                         <time> {{ post.date|date("m/d/Y/ H:i:s", "Europe/Samara") }}</time>
                     </div>

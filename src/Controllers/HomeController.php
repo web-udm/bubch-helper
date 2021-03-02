@@ -26,7 +26,7 @@ class HomeController
         $this->postSerializer = new PostSerializer();
     }
 
-    public function results(RequestInterface $request,
+    public function resultsAction(RequestInterface $request,
                             ResponseInterface $response) : ResponseInterface
     {
         try {
@@ -74,7 +74,7 @@ class HomeController
         }
     }
 
-    public function home(RequestInterface $request, ResponseInterface $response) : ResponseInterface
+    public function homeAction(RequestInterface $request, ResponseInterface $response) : ResponseInterface
     {
         $gotToken = $request->hasHeader('Referer');
 
@@ -85,7 +85,7 @@ class HomeController
         );
     }
 
-    public function token(RequestInterface $request, ResponseInterface $response) : ResponseInterface
+    public function tokenAction(RequestInterface $request, ResponseInterface $response) : ResponseInterface
     {
         try {
             if (!isset($_GET['code'])) {

@@ -40,9 +40,9 @@ class VkApiService
      */
     public function getPosts(string $groupId, int $numberOfPosts): array
     {
-        if (preg_match('#id(\d+)#', $groupId, $match)) {
+        if (preg_match('#(?:id|public)(\d+)#', $groupId, $match)) {
             $result = $this->execute('wall.get', [
-                'owner_id' => $match[1],
+                'owner_id' => '-' . $match[1], //знак '-' перед id - это особенно работы api.vk
                 'count' => $numberOfPosts
             ]);
         } else {
